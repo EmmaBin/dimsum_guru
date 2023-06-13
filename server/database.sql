@@ -11,6 +11,16 @@ CREATE TABLE food(
     name VARCHAR(255) NOT NULL UNIQUE,
     price INT NOT NULL,
     category VARCHAR(255) NOT NULL,
-    image VARCHAR(255) NOT NULL,
-    admin_id INT NOT NULL REFERENCES admin(id)
+    image VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE orders(
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE food_order(
+    id SERIAL PRIMARY KEY,
+    food_id INT NOT NULL,
+    order_id INT NOT NULL
 );
