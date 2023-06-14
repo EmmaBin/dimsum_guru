@@ -7,3 +7,4 @@ const pool = new Pool({
     port: 5433,
     database: "dimsum"
 })
+module.exports = pool;
