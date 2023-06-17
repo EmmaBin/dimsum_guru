@@ -14,7 +14,7 @@ app.listen(5000, () => {
 // onload, display read homepage
 // go to order page, read all from database
 
-app.get("/orders", async (req, res) => {
+app.get("/foods", async (req, res) => {
     try {
         const allFood = await pool.query(
             "SELECT * FROM food"
