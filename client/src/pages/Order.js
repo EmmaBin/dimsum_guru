@@ -17,15 +17,22 @@ export default function Order() {
     const [foods, setFoods] = useState([])
     useEffect(() => {
         getAllFood()
-        .then((result) => setFoods(result))
-    })
+            .then((result) => setFoods(result))
+    }, [])
 
     return (
         <>
-            <h1>test</h1>
-            <ul>
-                {foods.map(f => <li>{f.name}</li>)}
-            </ul>
+            {foods.map((food) => {
+                return (
+
+                    <div key={food.food_id}>
+                        <img src={`http://localhost:5000/${food.image}`} alt={food.name} />
+
+                        <h4>{food.name}</h4>
+                        <h4>{food.price}</h4>
+                    </div>)
+
+            })}
         </>
     )
 }

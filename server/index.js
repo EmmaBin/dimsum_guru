@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const path = require("path");;
 
 app.use(cors());
 app.use(express.json()) // parse body
-app.use("/images", express.static("images"))
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 
 
 app.listen(5000, () => {
