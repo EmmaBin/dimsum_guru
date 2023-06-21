@@ -3,7 +3,9 @@ import Home from "./pages/Home"
 import { NavLayout } from "./NavLayout";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
+import Admin from "./pages/Admin"
 import { useState } from 'react';
+
 
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/order" element={<Order cart={cart} setCart={setCart} />} />
         <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} />} />
+        <Route path="/admin" element={<Admin />} />
       </Route>
 
 

@@ -34,14 +34,21 @@ export function NavLayout() {
                             style={({ isActive }) => {
                                 return isActive ? { fontWeight: '600', textDecoration: 'underline' } : {}
                             }}
+                            to="/admin">Admin</NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            style={({ isActive }) => {
+                                return isActive ? { fontWeight: '600', textDecoration: 'underline' } : {}
+                            }}
                             to="/checkout">Cart</NavLink>
                     </li>
                 </ul>
             </div>
             <Outlet context={[ showFood, setShowFood]} />
-            <footer className="flex flex-col items-center justify-center text-center p-4">
-                <h4>Experience Authentic Oriental Flavors at Our Dimsum Restaurant. Embrace the Journey of Asian Gastronomy Today. #DimsumDelights</h4>
-                <h5>©2023 Copyright Dimsum Guru | Coded with 💗 by Bin Ma (Emma)</h5>
+            <footer className="flex flex-col items-center justify-center text-center p-4 bg-indigo-100">
+                <h4 className="mb-4">Experience Authentic Oriental Flavors. #DimsumDelights</h4>
+                <h5 className="mb-2">©2023 Copyright Dimsum Guru | Coded with 💗 by Bin Ma (Emma)</h5>
             </footer>
         </div>
     )
