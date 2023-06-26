@@ -62,19 +62,33 @@ app.post("/order/:id", async (req, res) => {
     }
 })
 
+
 app.get("/order/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const order = await pool.query(
-            "SELECT food_id FROM food_order WHERE order_id = $1",
+            "SELECT food.food_id, food.name, food.price, food.image " +
+            "FROM food_order " +
+            "INNER JOIN food ON food_order.food_id = food.food_id " +
+            "WHERE food_order.order_id = $1",
             [id]
         );
-        res.json(order.rows);
-    } catch (err) {
-        console.error(err.message)
 
+        const total = await pool.query(
+            "SELECT SUM(food.price) as total " +
+            "FROM food_order " +
+            "INNER JOIN food ON food_order.food_id = food.food_id " +
+            "WHERE food_order.order_id = $1",
+            [id]
+        );
+
+        res.json({ orderItems: order.rows, total: total.rows[0].total });
+
+    } catch (err) {
+        console.error(err.message);
     }
 })
+//inside the cart, update(post) and delete and show total amount
 
 // as admin, have CRUD routes
 

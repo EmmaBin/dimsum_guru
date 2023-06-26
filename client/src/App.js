@@ -32,6 +32,7 @@ function App() {
   }, [])
 
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0)
   useEffect(() => {
     if (orderID) {
       // fetch order contents from backend
@@ -40,7 +41,8 @@ function App() {
       fetch(`http://localhost:5000/order/${orderID}`)
         .then(res => res.json())
         .then(result => {
-          setCart(result.map(item => item.food_id))
+          setCart(result["orderItems"])
+          setTotal(Number(result["total"]))
 
         })
 
@@ -50,12 +52,14 @@ function App() {
 
 
 
+
+
   return (
     <Routes>
       <Route element={<NavLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} />} />
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} />} />
+        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} />} />
         <Route path="/admin" element={<Admin />} />
       </Route>
 
