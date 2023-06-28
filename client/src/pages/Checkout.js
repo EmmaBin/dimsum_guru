@@ -15,8 +15,17 @@ export default function Checkout({ cart, setCart, total }) {
         console.log(amount)
     }
     useEffect(() => {
-        processCart(cart)
+        processCart(cart);
     }, [cart])
+
+    const uniqueItems = cart.reduce((acc, current) => {
+        const x = acc.find(item => item.food_id === current.food_id);
+        if (!x) {
+            return acc.concat([current]);
+        } else {
+            return acc;
+        }
+    }, [])
     return (
         <div className="flex items-center justify-center my-2">
             <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
@@ -25,7 +34,7 @@ export default function Checkout({ cart, setCart, total }) {
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
 
 
-                        {cart.map((item) => (
+                        {uniqueItems.map((item) => (
                             <li key={item.food_id} className="py-3 sm:py-4">
                                 <div class="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
