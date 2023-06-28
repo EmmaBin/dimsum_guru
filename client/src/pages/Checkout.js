@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 
 export default function Checkout({ cart, setCart, total }) {
     const [amount, setAmount] = useState({})
+
     function processCart(cart) {
-        const newAmounts = { ...amount };
-        cart.forEach(item => {
-            if (newAmounts[item.food_id]) {
-                newAmounts[item.food_id]++;
-            } else {
-                newAmounts[item.food_id] = 1;
-            }
-        });
-        setAmount(newAmounts)
-        console.log(amount)
+        const newAmounts = cart.reduce((acc, item) => {
+            return {
+                ...acc,
+                [item.food_id]: (acc[item.food_id] || 0) + 1,
+            };
+        }, {});
+        setAmount(newAmounts);
     }
+
     useEffect(() => {
         processCart(cart);
     }, [cart])
