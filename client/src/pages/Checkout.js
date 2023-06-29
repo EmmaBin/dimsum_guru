@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-export default function Checkout({ cart, setCart, total }) {
+export default function Checkout({ cart, setCart, total, handleIncreaseClick }) {
     const amount = cart.reduce((acc, item) => {
-            return {
-                ...acc,
-                [item.food_id]: (acc[item.food_id] || 0) + 1,
-            };
-        }, {});
+        return {
+            ...acc,
+            [item.food_id]: (acc[item.food_id] || 0) + 1,
+        };
+    }, {});
 
     const uniqueItems = cart.reduce((acc, current) => {
         const x = acc.find(item => item.food_id === current.food_id);
@@ -35,7 +35,7 @@ export default function Checkout({ cart, setCart, total }) {
                                             {item.name}
                                         </p>
                                     </div>
-                                    <button>
+                                    <button onClick={e => handleIncreaseClick(e, item)}>
                                         +
                                     </button>
                                     <div>
