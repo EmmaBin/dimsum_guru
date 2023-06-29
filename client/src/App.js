@@ -50,6 +50,23 @@ function App() {
   }, [orderID])
 
 
+  useEffect(() => {
+    if (orderID) {
+      // fetch order contents from backend
+      // and save to cart with setCart
+
+      fetch(`http://localhost:5000/order/${orderID}`)
+        .then(res => res.json())
+        .then(result => {
+          setCart(result["orderItems"])
+          setTotal(Number(result["total"]))
+
+        })
+
+    }
+  }, [cart])
+
+
   function handleIncreaseClick(e, food) {
     e.preventDefault()
     setCart(prevCart => [...prevCart, food]);
@@ -83,7 +100,7 @@ function App() {
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
       });
-    console.log("clicked")
+  
   }
 
 
