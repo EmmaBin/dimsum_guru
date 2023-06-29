@@ -55,21 +55,46 @@ function App() {
     setCart(prevCart => [...prevCart, food]);
     console.log(cart)
     fetch(`http://localhost:5000/order/${orderID}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ foodID: food.food_id })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ foodID: food.food_id })
     }
     )
-}
+  }
+
+  function handleDecreaseClick(e, food) {
+    e.preventDefault();
+
+    fetch(`http://localhost:5000/order/${orderID}?foodID=${food.food_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        // filter the cart items
+        setCart(prevCart => prevCart.filter(item => item.food_id !== food.food_id));
+      })
+      .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+    console.log("clicked")
+  }
+
+
+
 
   return (
     <Routes>
       <Route element={<NavLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} handleIncreaseClick={ handleIncreaseClick} />} />
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={ handleIncreaseClick}/>} />
+        <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
+        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} />} />
         <Route path="/admin" element={<Admin />} />
       </Route>
 

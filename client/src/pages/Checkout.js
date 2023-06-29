@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function Checkout({ cart, setCart, total, handleIncreaseClick }) {
+export default function Checkout({ cart, setCart, total, handleIncreaseClick, handleDecreaseClick }) {
     const amount = cart.reduce((acc, item) => {
         return {
             ...acc,
@@ -41,7 +41,7 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick }) 
                                     <div>
                                         {amount[item.food_id]}
                                     </div>
-                                    <button>
+                                    <button onClick={e => handleDecreaseClick (e, item)}>
                                         -
                                     </button>
                                     <div className="inline-flex items-center text-base font-semibold text-gray-900">

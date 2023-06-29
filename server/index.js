@@ -62,6 +62,18 @@ app.post("/order/:id", async (req, res) => {
     }
 })
 
+app.delete("/order/:id", async (req, res) => {
+    const { id } = req.params;
+    const { foodID } = req.query;
+    try {
+        await pool.query('DELETE FROM food_order WHERE id = (SELECT MAX(id) FROM food_order WHERE food_id=$1 AND order_id=$2)', [foodID, id]);
+        res.json("One instance of the food was deleted");
+    } catch (err) {
+        console.error(err);
+        res.sendStatus(500); // Internal Server Error
+    }
+});
+
 
 app.get("/order/:id", async (req, res) => {
     try {
@@ -88,7 +100,7 @@ app.get("/order/:id", async (req, res) => {
         console.error(err.message);
     }
 })
-//inside the cart, update(post) and delete and show total amount
+
 
 // as admin, have CRUD routes
 
