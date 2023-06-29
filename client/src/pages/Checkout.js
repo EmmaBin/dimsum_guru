@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 export default function Checkout({ cart, setCart, total }) {
-    const [amount, setAmount] = useState({})
-
-    function processCart(cart) {
-        const newAmounts = cart.reduce((acc, item) => {
+    const amount = cart.reduce((acc, item) => {
             return {
                 ...acc,
                 [item.food_id]: (acc[item.food_id] || 0) + 1,
             };
         }, {});
-        setAmount(newAmounts);
-    }
-
-    useEffect(() => {
-        processCart(cart);
-    }, [cart])
 
     const uniqueItems = cart.reduce((acc, current) => {
         const x = acc.find(item => item.food_id === current.food_id);

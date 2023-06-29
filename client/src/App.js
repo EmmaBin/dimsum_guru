@@ -50,10 +50,6 @@ function App() {
   }, [orderID])
 
 
-
-
-
-
   return (
     <Routes>
       <Route element={<NavLayout />}>

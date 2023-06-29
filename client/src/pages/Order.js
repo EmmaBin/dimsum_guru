@@ -17,16 +17,16 @@ export default function Order({ cart, setCart, orderID }) {
             .then((result) => setFoods(result))
     }, [])
 
-    function handleClick(e, food_id) {
+    function handleClick(e, food) {
         e.preventDefault()
-        setCart(prevCart => [...prevCart, food_id]);
+        setCart(prevCart => [...prevCart, food]);
         console.log(cart)
         fetch(`http://localhost:5000/order/${orderID}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ foodID: food_id })
+            body: JSON.stringify({ foodID: food.food_id })
         }
         )
     }
@@ -40,7 +40,7 @@ export default function Order({ cart, setCart, orderID }) {
                         <div className="w-full h-48 md:h-64 relative overflow-hidden">
                             <img src={`http://localhost:5000/${food.image}`} alt={food.name} className="absolute top-0 left-0 w-full h-full object-cover rounded-md hover:blur-sm" />
                             <button className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-500 p-2 rounded-md px-8 text-white"
-                                onClick={e => handleClick(e, food.food_id)}>ADD TO CART</button>
+                                onClick={e => handleClick(e, food)}>ADD TO CART</button>
                         </div>
                         <div className="flex justify-between text-slate-950 px-8">
                             <h4>{food.name.toUpperCase()}</h4>
