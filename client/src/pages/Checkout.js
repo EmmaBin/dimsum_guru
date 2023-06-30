@@ -29,12 +29,31 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
     }, [])
     // click on the payment -> check amount>0 and card number is matched to the one provided, expiry data greater than current data, and length of CVV equal to 3
     // after the payment, update order_id status is "fulfilled", cart is empty, delete localStorage.getItem("orderID"), so when open page on orders, new order_id should be generated
+    function CompareDate(expiryDate) {
+        
+        let date = new Date().toJSON().slice(0, 7);
+        let inputYear = Number(expiryDate.slice(3, 7))
+        let inputMonth = Number(expiryDate.slice(0, 2))
+        let currentYear = Number(date.slice(0, 4))
+        let currentMonth = Number(date.slice(5, 7))
 
+        if (inputYear >= currentYear && inputMonth >= currentMonth) {
+            console.log(total)
+            return true
+        }
+        return false
+
+    }
     function handlePayment(e) {
         e.preventDefault()
         console.log("cardpayment is clicked")
         console.log(cardInfo)
-        // if (amount>0 && cardInfo.cardNumber==="4242 4242 4242 4242" && )
+        if (CompareDate(cardInfo.expiryDate) && total > 0 && cardInfo.cardNumber === "4242 4242 4242 4242" && cardInfo.cvv.length === 3) {
+            alert("information correct")
+            
+        } else (
+            alert("Invalid Card Information, please try again!")
+        )
     }
     return (
         <div className="flex flex-col items-center justify-center my-2">
