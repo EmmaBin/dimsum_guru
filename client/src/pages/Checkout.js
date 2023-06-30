@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 export default function Checkout({ cart, setCart, total, handleIncreaseClick, handleDecreaseClick }) {
+    const [cardInfo, setCartInfo] = useState({
+        cardNumber: "",
+        expiryDate: "",
+        cvv: ""
+    });
+    function handleCardChange(e, field) {
+        setCartInfo({
+            ...cardInfo,
+            [field]: e.target.value
+        });
+    }
     const amount = cart.reduce((acc, item) => {
         return {
             ...acc,
@@ -16,6 +27,15 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
             return acc;
         }
     }, [])
+    // click on the payment -> check amount>0 and card number is matched to the one provided, expiry data greater than current data, and length of CVV equal to 3
+    // after the payment, update order_id status is "fulfilled", cart is empty, delete localStorage.getItem("orderID"), so when open page on orders, new order_id should be generated
+
+    function handlePayment(e) {
+        e.preventDefault()
+        console.log("cardpayment is clicked")
+        console.log(cardInfo)
+        // if (amount>0 && cardInfo.cardNumber==="4242 4242 4242 4242" && )
+    }
     return (
         <div className="flex flex-col items-center justify-center my-2">
             <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
@@ -61,25 +81,55 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
                 <p className="text-xl font-semibold">Payment Details</p>
 
                 <div className="input_text mt-8 relative">
-                    <input type="text" className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b " placeholder="4242 4242 4242 4242" data-slots="0" data-accept="\d" size="19" />
+                    <input type="text"
+                        className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b "
+                        placeholder="4242 4242 4242 4242"
+                        data-slots="0"
+                        data-accept="\d"
+                        size="19"
+                        name="cardNumber"
+                        value={cardInfo.cardNumber}
+                        onChange={(e) => handleCardChange(e, 'cardNumber')}
+                    />
                     <span className="absolute left-0 text-sm -top-4">Card Number</span>
                     <i className="absolute left-2 top-[14px] text-gray-400 text-sm fa fa-credit-card"></i>
                 </div>
                 <div className="mt-8 flex gap-5 ">
                     <div className="input_text relative w-full">
-                        <input type="text" className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b " placeholder="mm/yyyy" data-slots="my" />
+                        <input type="text"
+                            className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b "
+                            placeholder="mm/yyyy"
+                            data-slots="my"
+                            name="expiryDate"
+                            value={cardInfo.expiryDate}
+                            onChange={(e) => handleCardChange(e, "expiryDate")}
+                        />
                         <span className="absolute left-0 text-sm -top-4">Expiry</span>
                         <i className="absolute left-2 top-4 text-gray-400 fa fa-calendar-o"></i>
                     </div>
                     <div className="input_text relative w-full">
-                        <input type="text" className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b " placeholder="000" data-slots="0" data-accept="\d" size="3" />
+                        <input type="text"
+                            className="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b "
+                            placeholder="000"
+                            data-slots="0"
+                            data-accept="\d"
+                            size="3"
+                            name="cvv"
+                            value={cardInfo.cvv}
+                            onChange={(e) => handleCardChange(e, "cvv")}
+                        />
                         <span className="absolute left-0 text-sm -top-4">CVV</span>
                         <i className="absolute left-2 top-4 text-gray-400 fa fa-lock"></i>
                     </div>
                 </div>
 
-                <div className="flex justify-center mt-4"> <button className="outline-none pay h-12 bg-orange-600 text-white mb-3 hover:bg-orange-700 rounded-lg w-1/2 cursor-pointer transition-all">Pay</button> </div>
-                <div className="text-sm">Use "4242 4242 4242 4242" test card & valid expiration dates and zip code</div>
+                <div className="flex justify-center mt-4">
+                    <button className="outline-none pay h-12 bg-orange-600 text-white mb-3 hover:bg-orange-700 rounded-lg w-1/2 cursor-pointer transition-all"
+                        onClick={(e) => handlePayment(e)}>Pay</button>
+                </div>
+                <div className="text-sm">
+                    Use "4242 4242 4242 4242" test card & valid expiration dates and zip code
+                </div>
             </div>
         </div>
     )
