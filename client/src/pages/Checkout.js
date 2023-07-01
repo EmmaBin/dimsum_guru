@@ -38,25 +38,26 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
         let currentMonth = Number(date.slice(5, 7))
 
         if (inputYear >= currentYear && inputMonth >= currentMonth) {
+            console.log(total)
             return true
         }
         return false
+
     }
-
-
     function handlePayment(e) {
         e.preventDefault()
         console.log("cardpayment is clicked")
         console.log(cardInfo)
         if (CompareDate(cardInfo.expiryDate) && total > 0 && cardInfo.cardNumber === "4242 4242 4242 4242" && cardInfo.cvv.length === 3) {
-            alert("Your order has been submitted!")
+            alert("Your order is submitted!")
             fetch(`http://localhost:5000/order/${orderID}`, {
                 method: "PUT",
                 headers: {
-                  "Content-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
-                body:{}
-            })
+                body: JSON.stringify({ status: "fulfilled" })
+            }
+            )
 
         } else (
             alert("Invalid Card Information, please try again!")
