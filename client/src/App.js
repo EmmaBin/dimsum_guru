@@ -111,7 +111,7 @@ function App() {
       <Route element={<NavLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} />} />
+        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} orderID={orderID} />} />
         <Route path="/admin" element={<Admin />} />
       </Route>
 

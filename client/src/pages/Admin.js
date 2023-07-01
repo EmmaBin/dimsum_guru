@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import AdminReadTotal from "./AdminReadTotal";
 
 export default function Admin() {
+    const handleLogin = async () => {
+        const response = await signInWithEmailAndPassword(auth, "test@test.com", "dimsum")
+        console.log(response)
+    }
     return (
     <>
-        <h1 className=" bg-blue-200">Admin page has the functionality to view total revenue, all existing menu, and CRUD functions</h1>
+            
+            <button onClick={handleLogin}>Login</button>
+            <br></br>
+            <AdminReadTotal />
     </>
     )
 
