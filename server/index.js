@@ -101,6 +101,25 @@ app.get("/order/:id", async (req, res) => {
     }
 })
 
+app.put("/order/:id", async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    console.log('Request params:', req.params)
+    console.log('Request body:', req.body);
+
+    try {
+        const updatedOrder = await pool.query(
+            "UPDATE orders SET status = $1 WHERE id = $2 RETURNING *",
+            [status, id]
+        );
+
+        res.json(updatedOrder.rows[0])
+
+
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 // as admin, have CRUD routes
 

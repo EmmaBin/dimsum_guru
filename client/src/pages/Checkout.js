@@ -42,12 +42,13 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
             return true
         }
         return false
-
     }
+
+
     function handlePayment(e) {
         e.preventDefault()
         console.log("cardpayment is clicked")
-        console.log(cardInfo)
+        console.log("order ID", orderID)
         if (CompareDate(cardInfo.expiryDate) && total > 0 && cardInfo.cardNumber === "4242 4242 4242 4242" && cardInfo.cvv.length === 3) {
             alert("Your order is submitted!")
             fetch(`http://localhost:5000/order/${orderID}`, {
