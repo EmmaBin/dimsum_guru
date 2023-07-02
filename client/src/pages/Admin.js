@@ -9,12 +9,12 @@ export default function Admin() {
         console.log(response)
     }
     return (
-    <>
-            
+        <>
+
             <button onClick={handleLogin}>Login</button>
             <br></br>
             <AdminReadTotal />
-    </>
+        </>
     )
 
 }
