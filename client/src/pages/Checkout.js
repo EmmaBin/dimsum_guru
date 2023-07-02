@@ -30,14 +30,12 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
     // click on the payment -> check amount>0 and card number is matched to the one provided, expiry data greater than current data, and length of CVV equal to 3
     // after the payment, update order_id status is "fulfilled", cart is empty, delete localStorage.getItem("orderID"), so when open page on orders, new order_id should be generated
     function CompareDate(expiryDate) {
+        let date = new Date();
+        const [inputMonth, inputYear] = expiryDate.split('/').map(Number)
+        let currentYear = date.getFullYear();
+        let currentMonth = date.getMonth();
 
-        let date = new Date().toJSON().slice(0, 7);
-        let inputYear = Number(expiryDate.slice(3, 7))
-        let inputMonth = Number(expiryDate.slice(0, 2))
-        let currentYear = Number(date.slice(0, 4))
-        let currentMonth = Number(date.slice(5, 7))
-
-        if (inputYear >= currentYear && inputMonth >= currentMonth) {
+        if (inputYear >= currentYear || (inputYear === currentYear && inputMonth >= currentMonth)) {
             console.log(total)
             return true
         }
@@ -50,7 +48,7 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
         console.log("cardpayment is clicked")
         console.log("order ID", orderID)
         if (CompareDate(cardInfo.expiryDate) && total > 0 && cardInfo.cardNumber === "4242 4242 4242 4242" && cardInfo.cvv.length === 3) {
-            alert("Your order is submitted!")
+            alert("Your order is submitted!");
             fetch(`http://localhost:5000/order/${orderID}`, {
                 method: "PUT",
                 headers: {
@@ -58,7 +56,14 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
                 },
                 body: JSON.stringify({ status: "fulfilled" })
             }
-            )
+            );
+            localStorage.removeItem("orderID");
+            setCart([]);
+            setCartInfo({
+                cardNumber: "",
+                expiryDate: "",
+                cvv: ""
+            })
 
         } else (
             alert("Invalid Card Information, please try again!")

@@ -32,7 +32,7 @@ function App() {
   }, [])
 
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0)
+  const total = cart.reduce((sum, food) => sum + food.price, 0)
   useEffect(() => {
     if (orderID) {
       // fetch order contents from backend
@@ -42,30 +42,10 @@ function App() {
         .then(res => res.json())
         .then(result => {
           setCart(result["orderItems"])
-          setTotal(Number(result["total"]))
-
         })
 
     }
   }, [orderID])
-
-
-  useEffect(() => {
-    if (orderID) {
-      // fetch order contents from backend
-      // and save to cart with setCart
-
-      fetch(`http://localhost:5000/order/${orderID}`)
-        .then(res => res.json())
-        .then(result => {
-          setCart(result["orderItems"])
-          setTotal(Number(result["total"]))
-
-        })
-
-    }
-  }, [cart])
-
 
   function handleIncreaseClick(e, food) {
     e.preventDefault()
@@ -100,7 +80,7 @@ function App() {
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
       });
-  
+
   }
 
 
