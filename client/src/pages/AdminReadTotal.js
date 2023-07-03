@@ -1,18 +1,20 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react';
+
 export default function AdminReadTotal() {
-    let TotalRevenue
+    const [TotalRevenue, setTotalRevenue] = useState(0); 
 
     useEffect(() => {
         fetch("http://localhost:5000/admin/total")
         .then(res => res.json())
-        .then(result => console.log(result))
-    }, [])
+        .then(result => {
 
-
+            setTotalRevenue(result.total_revenue);
+        });
+    }, []);
 
     return (
         <>
-            TOTAL REVENUE:{TotalRevenue}
+            TOTAL REVENUE: {TotalRevenue}
         </>
     )
 }

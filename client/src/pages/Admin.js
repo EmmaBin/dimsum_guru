@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import AdminReadTotal from "./AdminReadTotal";
+import AdminOrderSummary from "./AdminOrderSummary";
 
 export default function Admin() {
     const handleLogin = async () => {
@@ -14,6 +15,7 @@ export default function Admin() {
             <button onClick={handleLogin}>Login</button>
             <br></br>
             <AdminReadTotal />
+            <AdminOrderSummary />
         </>
     )
 
