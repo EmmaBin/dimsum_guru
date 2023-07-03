@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 const getAllFood = async () => {
     try {
         const response = await fetch("http://localhost:5000/foods");
@@ -14,19 +15,29 @@ function handleDeleteFood(food_id) {
         fetch(`http://localhost:5000/admin/${food_id}`, {
             method: "DELETE"
         });
-        
+
     } catch (err) {
         console.error(err.message)
     }
-    
+
 }
 
-export default function AdminOrderSummary() {
+
+
+export default function AdminOrderSummary({ showModal, setShowModal, foodID }) {
     const [foods, setFoods] = useState([])
+
     useEffect(() => {
         getAllFood()
             .then((result) => setFoods(result))
     }, [])
+
+    function handleEdit(food_id) {
+        // setShowModal(true)
+        foodID = food_id
+        console.log("edited")
+        console.log(showModal)
+    }
     return (
 
 
@@ -64,6 +75,7 @@ export default function AdminOrderSummary() {
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+
                                     >
                                         Edit
                                     </th>
@@ -90,9 +102,9 @@ export default function AdminOrderSummary() {
                                                 <img src={`http://localhost:5000/${item.image}`} alt={item.name} className="object-cover w-8 h-8" />
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                                <a className="text-green-500 hover:text-green-700" href="#">
+                                                <button className="text-green-500 hover:text-green-700" onClick={() => handleEdit(item.food_id)}>
                                                     Edit
-                                                </a>
+                                                </button>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <button className="text-red-500 hover:text-red-700" onClick={() => handleDeleteFood(item.food_id)}>

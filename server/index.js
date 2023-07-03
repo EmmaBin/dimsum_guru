@@ -126,7 +126,7 @@ app.get("/admin/total", async (req, res) => {
 
     try {
         const result = await pool.query(
-            `SELECT SUM(food.price) AS total_revenue
+        `SELECT SUM(food.price) AS total_revenue
         FROM orders
         JOIN food_order ON orders.id = food_order.order_id
         JOIN food ON food_order.food_id = food.food_id
