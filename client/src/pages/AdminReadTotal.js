@@ -14,7 +14,7 @@ export default function AdminReadTotal() {
 
     return (
         <>
-            TOTAL REVENUE: {TotalRevenue}
+            TOTAL REVENUE: ${TotalRevenue}
         </>
     )
 }
