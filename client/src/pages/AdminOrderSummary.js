@@ -9,6 +9,17 @@ const getAllFood = async () => {
         console.error(err.message)
     }
 }
+function handleDeleteFood(food_id) {
+    try {
+        fetch(`http://localhost:5000/admin/${food_id}`, {
+            method: "DELETE"
+        });
+        
+    } catch (err) {
+        console.error(err.message)
+    }
+    
+}
 
 export default function AdminOrderSummary() {
     const [foods, setFoods] = useState([])
@@ -67,30 +78,30 @@ export default function AdminOrderSummary() {
                             <tbody className="divide-y divide-gray-200">
                                 {foods.map((item) => {
                                     return (
-                                    <tr key={item.id}>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        {item.name}
+                                        <tr key={item.food_id}>
+                                            <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                                                {item.name}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">{item.price}</td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        {item.category}
+                                                {item.category}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                            <img src={`http://localhost:5000/${item.image}`} alt={item.name} className="object-cover w-8 h-8" />
+                                                <img src={`http://localhost:5000/${item.image}`} alt={item.name} className="object-cover w-8 h-8" />
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a className="text-green-500 hover:text-green-700" href="#">
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a className="text-red-500 hover:text-red-700" href="#">
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
+                                                <a className="text-green-500 hover:text-green-700" href="#">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                                <button className="text-red-500 hover:text-red-700" onClick={() => handleDeleteFood(item.food_id)}>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
                                     )
-                                    
+
                                 })}
 
 

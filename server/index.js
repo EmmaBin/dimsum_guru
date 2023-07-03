@@ -104,8 +104,7 @@ app.get("/order/:id", async (req, res) => {
 app.put("/order/:id", async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-    console.log('Request params:', req.params)
-    console.log('Request body:', req.body);
+ 
 
     try {
         const updatedOrder = await pool.query(
@@ -124,11 +123,10 @@ app.put("/order/:id", async (req, res) => {
 // as admin, have CRUD routes
 
 app.get("/admin/total", async (req, res) => {
-   
-    try {
 
+    try {
         const result = await pool.query(
-        `SELECT SUM(food.price) AS total_revenue
+            `SELECT SUM(food.price) AS total_revenue
         FROM orders
         JOIN food_order ON orders.id = food_order.order_id
         JOIN food ON food_order.food_id = food.food_id
@@ -143,3 +141,12 @@ app.get("/admin/total", async (req, res) => {
     }
 })
 
+app.delete('/admin/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query("DELETE FROM food WHERE food_id = $1 RETURNING *", [id]);
+        res.json("One food was deleted");
+    } catch (err) {
+        console.error(err.message)
+    }
+})
