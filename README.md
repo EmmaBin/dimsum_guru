@@ -16,24 +16,24 @@ DIMSUM GURU is a robust, full-stack e-commerce platform designed specifically fo
 
 **Home Page**
 ![HomePage](./assets/home.png)
-
+<br>
 **Menu Display**
 Delight in our diverse range of dishes!
 ![Menu](./assets/menu.png)
-
+<br>
 **Shopping Cart Page**
 Review your order with ease!
 ![cart](./assets/cart.png)
-
+<br>
 **Admin Account**
 Comprehensive CRUD functionality for efficient inventory tracking.
 ![admin](./assets/admin.png)
-
+<br>
 ## Upcoming Enhancements
 
-- **Stripe API Integration:** 
-- **Performance Optimizations:** 
-- **Deployment:** 
+- **Stripe API Integration** 
+- **Performance Optimizations** 
+- **Deployment** 
 
 
 Stay tuned for more updates!
