@@ -1,34 +1,43 @@
-# DIMSUM GURU: It's an e-commerce website designed for food ordering, complete with an admin account feature that enables easy tracking of inventory.
+# DIMSUM GURU: Full Stack Food Ordering Platform
 
-## Features
+DIMSUM GURU is a robust, full-stack e-commerce platform designed specifically for online food ordering. Alongside a user-friendly customer interface, it also incorporates a powerful admin dashboard for efficient inventory management.
 
-* React Routing
-* Firebase authentication (Non-Google)
-* LocalStorage
-* Tailwind
-* Postgresql
-* Express
-* Node.JS
-* Mobile First Responsive
 
-## Routes/Pages of Dimsum guru
+## Key Features
 
-*Home page*
+- **React Routing:** Efficient and intuitive page navigation.
+- **Firebase Authentication (Non-Google):** Secure user data and ensure privacy.
+- **LocalStorage:** Maintain user session and data persistence.
+- **Tailwind CSS:** Implement modern and responsive designs.
+- **PostgreSQL, Express & Node.JS:** Robust back-end to manage and process data.
+- **Mobile-First Responsive Design:** Ensure the platform is accessible on all devices.
+
+## A Glimpse into DIMSUM GURU
+
+**Home Page**
 ![HomePage](./assets/home.png)
 
-*Menu page*
-![HomePage](./assets/menu.png)
+**Menu Display**
+Delight in our diverse range of dishes!
+![Menu](./assets/menu.png)
 
-*Cart page*
-![Orders](./assets/menu.png)
+**Shopping Cart Page**
+Review your order with ease!
+![cart](./assets/cart.png)
 
-*Admin account page*
-![Orders](./assets/admin.png)
+**Admin Account**
+Comprehensive CRUD functionality for efficient inventory tracking.
+![admin](./assets/admin.png)
 
-## Next Steps
+## Upcoming Enhancements
 
-* Stripe API
-* Performance optimizations (caching items)
+- **Stripe API Integration:** 
+- **Performance Optimizations:** 
+- **Deployment:** 
+
+
+Stay tuned for more updates!
+
 
 
 
