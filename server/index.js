@@ -156,6 +156,7 @@ app.get('/food/:id', async (req, res) => {
         const food = await pool.query("SELECT name, price, category, image FROM food WHERE food_id = $1", [id]);
 
         if (food.rows.length > 0) {
+            console.log("get food information")
             res.json(food.rows[0]);
         } else {
             res.status(404).json({ message: "No food with this ID was found." });

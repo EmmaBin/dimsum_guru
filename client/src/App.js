@@ -5,12 +5,21 @@ import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import Admin from "./pages/Admin"
 import { useState, useEffect } from 'react';
+import AdminContent from "./pages/AdminContent";
 
 
 
 function App() {
   // save orderID to localStorage
   const [orderID, setOrderID] = useState(localStorage.getItem("orderID"));
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    const tokenFromStorage = localStorage.getItem("token")
+    if (tokenFromStorage) {
+      setToken(tokenFromStorage)
+    }
+  }, [])
 
   useEffect(() => {
     // initialize state if fresh page load
@@ -92,7 +101,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
         <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} orderID={orderID} />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin setToken={setToken} />} />
+        <Route path="/admin-account" element={<AdminContent token={ token } />} />
       </Route>
 
 

@@ -5,7 +5,7 @@ const getAllFood = async () => {
     try {
         const response = await fetch("http://localhost:5000/foods");
         const jsonData = await response.json();
-       
+
 
         return jsonData;
     } catch (err) {
@@ -37,6 +37,10 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
     function handleEdit(food_id) {
         setShowModal(true);
         setFoodID(food_id);
+        fetch(`http://localhost:5000/food/${food_id}`)
+            .then(res => res.json())
+            .then(result => console.log(result))
+
     }
     return (
 

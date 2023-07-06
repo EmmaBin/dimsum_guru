@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 export default function AdminEditModal({ foodID, setShowModal }) {
-    useEffect(() => {
-        fetch(`http://localhost:5000/food/${foodID}`)
-            .then(res => res.json())
-            .then(result => console.log(result))
-    }, [foodID])
+    const [foodInfo, setFoodInfo] = useState({})
+
 
 
     return (
@@ -33,7 +30,7 @@ export default function AdminEditModal({ foodID, setShowModal }) {
                         {/*body*/}
                         <div className="relative p-6 flex-auto">
                             <form className="my-4 text-slate-500 text-lg leading-relaxed">
-
+                                    <input value={foodInfo.name}></input>
                             </form>
                         </div>
                         {/*footer*/}
