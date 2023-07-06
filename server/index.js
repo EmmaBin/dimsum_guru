@@ -104,7 +104,7 @@ app.get("/order/:id", async (req, res) => {
 app.put("/order/:id", async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
- 
+
 
     try {
         const updatedOrder = await pool.query(
@@ -126,7 +126,7 @@ app.get("/admin/total", async (req, res) => {
 
     try {
         const result = await pool.query(
-        `SELECT SUM(food.price) AS total_revenue
+            `SELECT SUM(food.price) AS total_revenue
         FROM orders
         JOIN food_order ON orders.id = food_order.order_id
         JOIN food ON food_order.food_id = food.food_id
@@ -150,3 +150,18 @@ app.delete('/admin/:id', async (req, res) => {
         console.error(err.message)
     }
 })
+app.get('/food/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const food = await pool.query("SELECT name, price, category, image FROM food WHERE food_id = $1", [id]);
+
+        if (food.rows.length > 0) {
+            res.json(food.rows[0]);
+        } else {
+            res.status(404).json({ message: "No food with this ID was found." });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: "Server error" });
+    }
+});

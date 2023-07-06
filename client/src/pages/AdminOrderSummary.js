@@ -37,8 +37,6 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
     function handleEdit(food_id) {
         setShowModal(true);
         setFoodID(food_id);
-        console.log("edited");
-        console.log(showModal);
     }
     return (
 
