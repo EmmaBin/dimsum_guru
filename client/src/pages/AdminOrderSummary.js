@@ -5,6 +5,8 @@ const getAllFood = async () => {
     try {
         const response = await fetch("http://localhost:5000/foods");
         const jsonData = await response.json();
+       
+
         return jsonData;
     } catch (err) {
         console.error(err.message)
@@ -24,7 +26,7 @@ function handleDeleteFood(food_id) {
 
 
 
-export default function AdminOrderSummary({ showModal, setShowModal, foodID }) {
+export default function AdminOrderSummary({ showModal, setShowModal, foodID, setFoodID }) {
     const [foods, setFoods] = useState([])
 
     useEffect(() => {
@@ -33,10 +35,10 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID }) {
     }, [])
 
     function handleEdit(food_id) {
-        // setShowModal(true)
-        foodID = food_id
-        console.log("edited")
-        console.log(showModal)
+        setShowModal(true);
+        setFoodID(food_id);
+        console.log("edited");
+        console.log(showModal);
     }
     return (
 
