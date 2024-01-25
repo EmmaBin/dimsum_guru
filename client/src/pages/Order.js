@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
+import getAllFood from "../components/getAllfood";
 
-const getAllFood = async () => {
-    try {
-        const response = await fetch("http://localhost:5000/foods");
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (err) {
-        console.error(err.message)
-    }
-}
+
 
 export default function Order({ handleIncreaseClick }) {
     const [foods, setFoods] = useState([])

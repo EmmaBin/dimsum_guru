@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
+import getAllFood from "../components/getAllfood";
+import store from "../store/store";
+import { useSelector, useDispatch } from 'react-redux'
 
-
-const getAllFood = async () => {
-    try {
-        const response = await fetch("http://localhost:5000/foods");
-        const jsonData = await response.json();
-
-
-        return jsonData;
-    } catch (err) {
-        console.error(err.message)
-    }
-}
 function handleDeleteFood(food_id) {
     try {
         fetch(`http://localhost:5000/admin/${food_id}`, {
             method: "DELETE"
-        });
+        }).then(response => {
+            store.dispatch({type: 'delete_from_menu', food_id:food_id})
+        })
 
     } catch (err) {
         console.error(err.message)
@@ -25,14 +18,18 @@ function handleDeleteFood(food_id) {
 }
 
 
-
 export default function AdminOrderSummary({ showModal, setShowModal, foodID, setFoodID }) {
-    const [foods, setFoods] = useState([])
 
     useEffect(() => {
         getAllFood()
-            .then((result) => setFoods(result))
+            .then((result) => {
+                console.log(result)
+                store.dispatch({ type: 'read_all_food', foods: result })
+            });
     }, [])
+    //highlight here!!!
+    const foods = useSelector((state) => state.admin)
+
 
     function handleEdit(food_id) {
         setShowModal(true);
