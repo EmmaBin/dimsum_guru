@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 
-export default function Checkout({ cart, setCart, total, handleIncreaseClick, handleDecreaseClick, orderID }) {
+export default function Checkout({ handleIncreaseClick, handleDecreaseClick, orderID }) {
+    const cart = useSelector((state) => state.cart)
+    const total = cart.reduce((sum, food)=> sum+food.price, 0)
+    const dispatch = useDispatch()
     const [cardInfo, setCartInfo] = useState({
         cardNumber: "",
         expiryDate: "",
@@ -9,6 +13,7 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
     function handleCardChange(e, field) {
         setCartInfo({
             ...cardInfo,
+            // computed property names
             [field]: e.target.value
         });
     }
@@ -58,7 +63,7 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
             }
             );
             localStorage.removeItem("orderID");
-            setCart([]);
+            dispatch({ type: 'paid' })
             setCartInfo({
                 cardNumber: "",
                 expiryDate: "",
@@ -161,7 +166,7 @@ export default function Checkout({ cart, setCart, total, handleIncreaseClick, ha
                         onClick={(e) => handlePayment(e)}>Pay</button>
                 </div>
                 <div className="text-sm">
-                    Use "4242 4242 4242 4242" test card & valid expiration dates and zip code
+                    Use "4242 4242 4242 4242" test card & valid expiration dates and three digits as CVV.
                 </div>
             </div>
         </div>

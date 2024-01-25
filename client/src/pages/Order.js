@@ -10,7 +10,7 @@ const getAllFood = async () => {
     }
 }
 
-export default function Order({ cart, setCart, orderID, handleIncreaseClick }) {
+export default function Order({ handleIncreaseClick }) {
     const [foods, setFoods] = useState([])
     useEffect(() => {
         getAllFood()

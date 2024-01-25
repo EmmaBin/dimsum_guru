@@ -6,6 +6,8 @@ import Order from "./pages/Order";
 import Admin from "./pages/Admin"
 import { useState, useEffect } from 'react';
 import AdminContent from "./pages/AdminContent";
+import store from './store/store'
+import { Provider } from 'react-redux'
 
 
 
@@ -40,8 +42,8 @@ function App() {
     }
   }, [])
 
-  const [cart, setCart] = useState([]);
-  const total = cart.reduce((sum, food) => sum + food.price, 0)
+  
+  
   useEffect(() => {
     if (orderID) {
       // fetch order contents from backend
@@ -50,16 +52,16 @@ function App() {
       fetch(`http://localhost:5000/order/${orderID}`)
         .then(res => res.json())
         .then(result => {
-          setCart(result["orderItems"])
+          console.log(result)
+          store.dispatch({ type: 'fetch_cart', cart: result['orderItems'] })
+          
         })
-
     }
   }, [orderID])
 
   function handleIncreaseClick(e, food) {
     e.preventDefault()
-    setCart(prevCart => [...prevCart, food]);
-    console.log(cart)
+    store.dispatch({ type: 'added', ...food })
     fetch(`http://localhost:5000/order/${orderID}`, {
       method: "POST",
       headers: {
@@ -83,8 +85,7 @@ function App() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        // filter the cart items
-        setCart(prevCart => prevCart.filter(item => item.food_id !== food.food_id));
+        store.dispatch({ type: 'deleted', food_id: food.food_id })
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
@@ -92,21 +93,21 @@ function App() {
 
   }
 
-
+  
 
 
   return (
-    <Routes>
-      <Route element={<NavLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/order" element={<Order cart={cart} setCart={setCart} orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} total={total} handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} orderID={orderID} />} />
-        <Route path="/admin" element={<Admin setToken={setToken} />} />
-        <Route path="/admin-account" element={<AdminContent token={ token } />} />
-      </Route>
-
-
-    </Routes>
+    <Provider store={store}>
+      <Routes>
+        <Route element={<NavLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/order" element={<Order orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
+          <Route path="/checkout" element={<Checkout handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} orderID={orderID} />} />
+          <Route path="/admin" element={<Admin setToken={setToken} />} />
+          <Route path="/admin-account" element={<AdminContent token={token} />} />
+        </Route>
+      </Routes>
+    </Provider>
 
   );
 }
