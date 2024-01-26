@@ -1,18 +1,19 @@
-# DIMSUM GURU: Full Stack Food Ordering Platform
+# DIM SUM GURU: Full Stack Food Ordering Platform
 
-DIMSUM GURU is a robust, full-stack e-commerce platform designed specifically for online food ordering. Alongside a user-friendly customer interface, it also incorporates a powerful admin dashboard for efficient inventory management.
+DIM SUM GURU is a full-stack e-commerce platform designed specifically for online food ordering. Alongside a user-friendly customer interface, it features an admin dashboard for efficiently updating the existing menu.
 
 
 ## Key Features
 
 - **React Routing:** Efficient and intuitive page navigation.
-- **Firebase Authentication (Non-Google):** Secure user data and ensure privacy.
+- **Redux:** Manage state value across components.
+- **Firebase Authentication (Non-Google):** Secure admin data and ensure privacy.
 - **LocalStorage:** Maintain user session and data persistence.
 - **Tailwind CSS:** Implement modern and responsive designs.
-- **PostgreSQL, Express & Node.JS:** Robust back-end to manage and process data.
+- **PostgreSQL, Express & Node.JS:** Back-end to manage and process data.
 - **Mobile-First Responsive Design:** Ensure the platform is accessible on all devices.
 
-## A Glimpse into DIMSUM GURU
+## A Glimpse into DIM SUM GURU
 
 **Home Page**
 ![HomePage](./assets/home.png)

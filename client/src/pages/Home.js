@@ -25,7 +25,7 @@ export default function Home() {
                         Your destination for extraordinary dim sum! Our seasoned chefs craft a range of exquisite dishes to delight your palate.
                     </div>
                     <div className={`text-xl md:text-2xl lg:text-3xl transition-all duration-1000 ease-in-out ${loadedParagraph2 ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
-                        We're not just about food; we offer an experience. Journey to the heart of Canton, China, with every bite you take.
+                        We're not just about food, we offer an experience. Journey to the heart of Canton, China, with every bite you take.
                     </div>
                     <div></div> {/* empty div to create a gap */}
                 </div>

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-export default function AdminEditModal({ foodID, setShowModal }) {
+export default function AdminEditModal({ foodInfoEdit, setShowModal }) {
     const [foodInfo, setFoodInfo] = useState({})
+    useEffect(() => {
 
+        setFoodInfo(foodInfoEdit || {})
+    }, [foodInfoEdit])
 
+    console.log('edit modal', foodInfo)
 
     return (
         <>
@@ -28,11 +32,36 @@ export default function AdminEditModal({ foodID, setShowModal }) {
                             </button>
                         </div>
                         {/*body*/}
-                        <div className="relative p-6 flex-auto">
-                            <form className="my-4 text-slate-500 text-lg leading-relaxed">
-                                    <input value={foodInfo.name}></input>
-                            </form>
-                        </div>
+                        <form className="my-4 text-slate-500 text-lg leading-relaxed flex-row">
+                            <div className="flex flex-col m-4">
+                                <label className="mb-2">Name: </label>
+                                <input value={foodInfo.name} className="border rounded mb-2 p-2"></input>
+                            </div>
+
+                            <div className="flex flex-col m-4">
+                                <label className="mb-2">Price: </label>
+                                <input value={foodInfo.price} className="border rounded mb-2 p-2"></input>
+                            </div>
+
+                            <div className="flex flex-col m-4">
+                                <label className="mb-2">Image: </label>
+                                <input value={foodInfo.image} className="border rounded mb-2 p-2"></input>
+                            </div>
+
+                            <div className="flex flex-col m-4">
+                                <label className="mb-2">Category: </label>
+                                <input value={foodInfo.category} className="border rounded mb-2 p-2"></input>
+                            </div>
+
+                            <button
+                                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mb-2 m-4"
+                                type="submit"
+                                onClick={() => setShowModal(false)}
+                            >
+                                Save Changes
+                            </button>
+                        </form>
+
                         {/*footer*/}
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                             <button
@@ -42,13 +71,7 @@ export default function AdminEditModal({ foodID, setShowModal }) {
                             >
                                 Close
                             </button>
-                            <button
-                                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="button"
-                                onClick={() => setShowModal(false)}
-                            >
-                                Save Changes
-                            </button>
+
                         </div>
                     </div>
                 </div>

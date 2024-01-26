@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AdminContent({ token }) {
     const [showModal, setShowModal] = useState(false);
-    const [foodID, setFoodID] = useState(null);
+    const [foodInfoEdit, setFoodInfoEdit] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,8 +20,8 @@ export default function AdminContent({ token }) {
         <>
             {token && (<>
                 <AdminReadTotal />
-                <AdminOrderSummary showModal={showModal} setShowModal={setShowModal} foodID={foodID} setFoodID={setFoodID} />
-                {showModal && <AdminEditModal setShowModal={setShowModal} foodId={foodID} />}
+                <AdminOrderSummary showModal={showModal} setShowModal={setShowModal} foodInfoEdit={foodInfoEdit} setFoodInfoEdit={setFoodInfoEdit} />
+                {showModal && <AdminEditModal setShowModal={setShowModal} foodInfoEdit={foodInfoEdit} />}
             </>)}
         </>
 

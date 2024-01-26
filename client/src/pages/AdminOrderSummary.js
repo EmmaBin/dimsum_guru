@@ -17,7 +17,7 @@ function handleDeleteFood(food_id) {
 
 }
 
-export default function AdminOrderSummary({ showModal, setShowModal, foodID, setFoodID }) {
+export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdit, setFoodInfoEdit }) {
     const [showForm, setShowForm] = useState(false)
     const [formDetail, setFormDetail] = useState({
         name: "",
@@ -50,7 +50,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
             .then(res => res.json())
             .then(result => {
                 console.log('edit food', result)
-                setFoodID(result)
+                setFoodInfoEdit(result)
             })
     }
 
