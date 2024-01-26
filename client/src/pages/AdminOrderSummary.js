@@ -35,7 +35,6 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
     useEffect(() => {
         getAllFood()
             .then((result) => {
-                console.log(result)
                 store.dispatch({ type: 'read_all_food', foods: result })
             });
     }, [])
@@ -49,11 +48,15 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
         fetch(`http://localhost:5000/food/${food_id}`)
             .then(res => res.json())
             .then(result => {
-                console.log('edit food', result)
-                setFoodInfoEdit(result)
+                setFoodInfoEdit({
+                    ...result,
+                    food_id:food_id
+                })
+                
+               
             })
     }
-
+        
     function handleFormSubmit(e) {
         e.preventDefault()
         store.dispatch({ type: 'added_one_item', food_id: formDetail.food_id, name: formDetail.name, price: formDetail.price, image: formDetail.image })

@@ -120,6 +120,7 @@ app.put("/order/:id", async (req, res) => {
     }
 })
 
+
 // as admin, have CRUD routes
 
 app.get("/admin/total", async (req, res) => {
@@ -168,6 +169,25 @@ app.delete('/admin/:id', async (req, res) => {
         console.error(err.message)
     }
 })
+
+app.put('/admin/:id', async (req, res) => {
+    const { id } = req.params;
+    const name = req.body.food_info.name
+    const price = +req.body.food_info.price
+    const category = req.body.food_info.category
+    const image = req.body.food_info.image
+    try {
+        const updateMenu = await pool.query(
+            "UPDATE food SET name = $1, price = $2, category = $3, image = $4 WHERE food_id = $5 RETURNING *",
+            [name, price, category, image, id]
+        );
+        res.json(updateMenu.rows[0])
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 app.get('/food/:id', async (req, res) => {
     try {
         const { id } = req.params;
