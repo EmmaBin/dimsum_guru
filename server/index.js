@@ -140,7 +140,25 @@ app.get("/admin/total", async (req, res) => {
         console.error(err.message)
     }
 })
+app.post("/admin/", async (req, res) => {
+    const name = req.body.name
+    const price = +req.body.price
+    const category = req.body.category
+    const image = req.body.image
+    try {
+        const addNewItem = await pool.query(
+            "INSERT INTO food (name, price, category, image) VALUES ($1, $2, $3, $4)",
+            [name, price, category, image]
+        );
 
+
+        res.status(200).json({ message: "Item added successfully" });
+
+    } catch (err) {
+        console.error('new item added', err.message)
+    }
+
+})
 app.delete('/admin/:id', async (req, res) => {
     try {
         const { id } = req.params;

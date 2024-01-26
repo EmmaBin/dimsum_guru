@@ -8,7 +8,7 @@ function handleDeleteFood(food_id) {
         fetch(`http://localhost:5000/admin/${food_id}`, {
             method: "DELETE"
         }).then(response => {
-            store.dispatch({type: 'delete_from_menu', food_id:food_id})
+            store.dispatch({ type: 'delete_from_menu', food_id: food_id })
         })
 
     } catch (err) {
@@ -17,8 +17,20 @@ function handleDeleteFood(food_id) {
 
 }
 
-
 export default function AdminOrderSummary({ showModal, setShowModal, foodID, setFoodID }) {
+    const [showForm, setShowForm] = useState(false)
+    const [formDetail, setFormDetail] = useState({
+        name: "",
+        price: "",
+        category: "",
+        image: ""
+    })
+    const handleChange = (event) => {
+        setFormDetail({
+            ...formDetail,
+            [event.target.name]: event.target.value,
+        });
+    };
 
     useEffect(() => {
         getAllFood()
@@ -33,12 +45,26 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
 
     function handleEdit(food_id) {
         setShowModal(true);
-        setFoodID(food_id);
+
         fetch(`http://localhost:5000/food/${food_id}`)
             .then(res => res.json())
-            .then(result => console.log(result))
-
+            .then(result => {
+                console.log('edit food', result)
+                setFoodID(result)
+            })
     }
+
+    function handleFormSubmit(e) {
+        e.preventDefault()
+        fetch(`http://localhost:5000/admin/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formDetail)
+        }
+        )
+    };
     return (
 
 
@@ -87,7 +113,9 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
                                         Delete
                                     </th>
                                 </tr>
+
                             </thead>
+
                             <tbody className="divide-y divide-gray-200">
                                 {foods.map((item) => {
                                     return (
@@ -116,11 +144,22 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
                                     )
 
                                 })}
-
-
                             </tbody>
                         </table>
                     </div>
+                    <button className="bg-indigo-100 hover:bg-indigo-200 text-black font-bold py-2 px-4 rounded-full uppercase mt-4" onClick={() => setShowForm(!showForm)}>add new item to menu</button>
+                    {showForm &&
+                        <form onSubmit={handleFormSubmit}>
+                            <label htmlFor="inputName" >NAME:</label>
+                            <input type="text" className="border" name="name" id="inputName" value={formDetail.name} onChange={handleChange}></input>
+                            <label htmlFor="price">PRICE:</label>
+                            <input type="text" className="border" name="price" id="price" value={formDetail.price} onChange={handleChange}></input>
+                            <label htmlFor="category">CATEGORY:</label>
+                            <input type="text" className="border" name="category" id="category" value={formDetail.category} onChange={handleChange}></input>
+                            <label htmlFor="image">IMAGE:</label>
+                            <input type="text" className="border" name="image" id="image" value={formDetail.image} onChange={handleChange}></input>
+                            <button type="submit" className="bg-indigo-100 hover:bg-indigo-200 text-gray font-bold py-2 px-4 rounded-full uppercase ml-4">Submit</button>
+                        </form>}
                 </div>
             </div>
         </div>
