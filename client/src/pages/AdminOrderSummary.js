@@ -56,6 +56,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
 
     function handleFormSubmit(e) {
         e.preventDefault()
+        store.dispatch({ type: 'added_one_item', food_id: formDetail.food_id, name: formDetail.name, price: formDetail.price, image: formDetail.image })
         fetch(`http://localhost:5000/admin/`, {
             method: "POST",
             headers: {
@@ -64,6 +65,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodID, set
             body: JSON.stringify(formDetail)
         }
         )
+
     };
     return (
 
