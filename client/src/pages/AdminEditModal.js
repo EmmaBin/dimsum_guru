@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import store from "../store/store";
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function AdminEditModal({ foodInfoEdit, setShowModal }) {
     const [foodInfo, setFoodInfo] = useState({})
@@ -24,7 +26,9 @@ export default function AdminEditModal({ foodInfoEdit, setShowModal }) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ food_info: foodInfo })
-        });
+        })
+            .then(res => res.json())
+            .then(result => store.dispatch({ type: 'edited_menu_item', food_id: result.food_id, name:result.name, price:result.price, category:result.category, image: result.image }))
     }
 
     return (

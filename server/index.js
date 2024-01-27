@@ -181,6 +181,7 @@ app.put('/admin/:id', async (req, res) => {
             "UPDATE food SET name = $1, price = $2, category = $3, image = $4 WHERE food_id = $5 RETURNING *",
             [name, price, category, image, id]
         );
+        console.log(updateMenu.rows[0])
         res.json(updateMenu.rows[0])
     } catch (err) {
         console.error(err.message)
