@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 const path = require("path");;
+// const {cloudinary} = require("./utils/cloudinary")
 
 app.use(cors());
 app.use(express.json()) // parse body
@@ -156,7 +157,7 @@ app.post("/admin/", async (req, res) => {
         res.status(200).json({ message: "Item added successfully" });
 
     } catch (err) {
-        console.error('new item added', err.message)
+        console.error('Error adding new item', err.message)
     }
 
 })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import getAllFood from "../components/getAllfood";
+import getAllFood from "../utils/getAllfood";
 import store from "../store/store";
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -23,13 +23,27 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
         name: "",
         price: "",
         category: "",
-        image: ""
+        image: null
     })
+
     const handleChange = (event) => {
-        setFormDetail({
-            ...formDetail,
-            [event.target.name]: event.target.value,
-        });
+        if (event.target.files) {
+            setFormDetail({
+                ...formDetail,
+                image: event.target.files[0]
+
+            });
+        } else {
+            setFormDetail({
+                ...formDetail,
+                [event.target.name]: event.target.value,
+
+            });
+        }
+
+        console.log("handle form submit image", event.target.files)
+
+
     };
 
     useEffect(() => {
@@ -50,24 +64,53 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
             .then(result => {
                 setFoodInfoEdit({
                     ...result,
-                    food_id:food_id
+                    food_id: food_id
                 })
-                
-               
+
+
             })
     }
-        
-    function handleFormSubmit(e) {
+    const uploadFile = async () => {
+        const cloudForm = new FormData();
+        cloudForm.append("file", formDetail.image)
+        cloudForm.append("upload_preset", "dimsum")
+
+        try {
+
+            let api = `https://api.cloudinary.com/v1_1/dh2ri6dh9/image/upload`
+            const data = await fetch(api, {
+                method: "POST",
+                body: cloudForm
+            }).then(res => res.json())
+            const result = data.url
+            return result
+
+        } catch (err) {
+            console.error(err)
+        }
+
+
+    }
+
+
+    async function handleFormSubmit(e) {
         e.preventDefault()
-        store.dispatch({ type: 'added_one_item', food_id: formDetail.food_id, name: formDetail.name, price: formDetail.price, image: formDetail.image })
+
+        const uploadedImageUrl = await uploadFile()
+
+        const formData = {
+            ...formDetail,
+            image: uploadedImageUrl,
+        }
+
+        store.dispatch({ type: 'added_one_item', food_id: formDetail.food_id, name: formDetail.name, price: formDetail.price, image: uploadedImageUrl })
         fetch(`http://localhost:5000/admin/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(formDetail)
-        }
-        )
+            body: JSON.stringify(formData)
+        })
 
     };
     return (
@@ -133,7 +176,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
                                                 {item.category}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                                <img src={`http://localhost:5000/${item.image}`} alt={item.name} className="object-cover w-8 h-8" />
+                                                <img src={item.image} alt={item.name} className="object-cover w-8 h-8" />
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <button className="text-green-500 hover:text-green-700" onClick={() => handleEdit(item.food_id)}>
@@ -162,7 +205,14 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
                             <label htmlFor="category">CATEGORY:</label>
                             <input type="text" className="border" name="category" id="category" value={formDetail.category} onChange={handleChange}></input>
                             <label htmlFor="image">IMAGE:</label>
-                            <input type="text" className="border" name="image" id="image" value={formDetail.image} onChange={handleChange}></input>
+                            <input
+                                id="image"
+                                type="file"
+                                name="image"
+                                onChange={handleChange}
+
+
+                            />
                             <button type="submit" className="bg-indigo-100 hover:bg-indigo-200 text-gray font-bold py-2 px-4 rounded-full uppercase ml-4">Submit</button>
                         </form>}
                 </div>

@@ -28,7 +28,7 @@ export default function AdminEditModal({ foodInfoEdit, setShowModal }) {
             body: JSON.stringify({ food_info: foodInfo })
         })
             .then(res => res.json())
-            .then(result => store.dispatch({ type: 'edited_menu_item', food_id: result.food_id, name:result.name, price:result.price, category:result.category, image: result.image }))
+            .then(result => store.dispatch({ type: 'edited_menu_item', food_id: result.food_id, name: result.name, price: result.price, category: result.category, image: result.image }))
     }
 
     return (

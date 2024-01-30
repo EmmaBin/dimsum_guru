@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import getAllFood from "../components/getAllfood";
+import getAllFood from "../utils/getAllfood";
 
 
 
@@ -17,7 +17,7 @@ export default function Order({ handleIncreaseClick }) {
 
                     <div key={food.food_id} className="w-full md:w-4/5 group" >
                         <div className="w-full h-48 md:h-64 relative overflow-hidden">
-                            <img src={`http://localhost:5000/${food.image}`} alt={food.name} className="absolute top-0 left-0 w-full h-full object-cover rounded-md hover:blur-sm" />
+                            <img src={food.image} alt={food.name} className="absolute top-0 left-0 w-full h-full object-cover rounded-md hover:blur-sm" />
                             <button className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-500 p-2 rounded-md px-8 text-white"
                                 onClick={e => handleIncreaseClick(e, food)}>ADD TO CART</button>
                         </div>
