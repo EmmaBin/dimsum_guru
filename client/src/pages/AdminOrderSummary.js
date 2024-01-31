@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import getAllFood from "../utils/getAllfood";
 import store from "../store/store";
+import EditForm from "../components/EditForm";
 import { useSelector, useDispatch } from 'react-redux'
+import DeleteButton from "../components/DeleteButton"
 
-function handleDeleteFood(food_id) {
-    try {
-        fetch(`http://localhost:5000/admin/${food_id}`, {
-            method: "DELETE"
-        }).then(response => {
-            store.dispatch({ type: 'delete_from_menu', food_id: food_id })
-        })
 
-    } catch (err) {
-        console.error(err.message)
-    }
-
-}
 
 export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdit, setFoodInfoEdit }) {
     const [showForm, setShowForm] = useState(false)
@@ -25,6 +15,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
         category: "",
         image: null
     })
+
 
     const handleChange = (event) => {
         if (event.target.files) {
@@ -113,6 +104,8 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
         })
 
     };
+
+
     return (
 
 
@@ -184,9 +177,7 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
                                                 </button>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                                <button className="text-red-500 hover:text-red-700" onClick={() => handleDeleteFood(item.food_id)}>
-                                                    Delete
-                                                </button>
+                                                <DeleteButton item={item} />
                                             </td>
                                         </tr>
                                     )
@@ -197,24 +188,8 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
                     </div>
                     <button className="bg-indigo-100 hover:bg-indigo-200 text-black font-bold py-2 px-4 rounded-full uppercase mt-4" onClick={() => setShowForm(!showForm)}>add new item to menu</button>
                     {showForm &&
-                        <form onSubmit={handleFormSubmit}>
-                            <label htmlFor="inputName" >NAME:</label>
-                            <input type="text" className="border" name="name" id="inputName" value={formDetail.name} onChange={handleChange}></input>
-                            <label htmlFor="price">PRICE:</label>
-                            <input type="text" className="border" name="price" id="price" value={formDetail.price} onChange={handleChange}></input>
-                            <label htmlFor="category">CATEGORY:</label>
-                            <input type="text" className="border" name="category" id="category" value={formDetail.category} onChange={handleChange}></input>
-                            <label htmlFor="image">IMAGE:</label>
-                            <input
-                                id="image"
-                                type="file"
-                                name="image"
-                                onChange={handleChange}
-
-
-                            />
-                            <button type="submit" className="bg-indigo-100 hover:bg-indigo-200 text-gray font-bold py-2 px-4 rounded-full uppercase ml-4">Submit</button>
-                        </form>}
+                        <EditForm handleFormSubmit={handleFormSubmit} formDetail={formDetail} handleChange={handleChange} />
+                    }
                 </div>
             </div>
         </div>

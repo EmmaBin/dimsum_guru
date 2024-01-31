@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import store from "../store/store";
 import { useSelector, useDispatch } from 'react-redux'
 
+
 export default function AdminEditModal({ foodInfoEdit, setShowModal }) {
     const [foodInfo, setFoodInfo] = useState({})
     useEffect(() => {

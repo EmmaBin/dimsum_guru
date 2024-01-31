@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 const path = require("path");;
-// const {cloudinary} = require("./utils/cloudinary")
 
 app.use(cors());
 app.use(express.json()) // parse body
