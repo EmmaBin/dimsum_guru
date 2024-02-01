@@ -1,5 +1,5 @@
 import { NavLink, Link, Outlet } from "react-router-dom";
-import Logo from "./assets/dimsum_logo.png"
+import Logo from "../assets/dimsum_logo.png"
 import React from "react"
 import {useState} from "react"
 

@@ -1,4 +1,4 @@
-import AdminReadTotal from "../components/AdminReadTotal"
+import AdminReadTotal from "../../components/AdminReadTotal"
 import AdminOrderSummary from "./AdminOrderSummary"
 import AdminEditModal from "./AdminEditModal";
 import React, { useEffect, useState } from 'react';

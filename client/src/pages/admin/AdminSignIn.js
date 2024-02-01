@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-import AdminReadTotal from "../components/AdminReadTotal";
-import AdminOrderSummary from "./AdminOrderSummary";
-import AdminEditModal from "./AdminEditModal";
+import { auth } from "../../firebase";
 
 export default function Admin({ setToken }) {
     const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home"
-import { NavLayout } from "./NavLayout";
+import { NavLayout } from "./components/NavLayout";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
-import Admin from "./pages/Admin"
+import AdminSignIn from "./pages/admin/AdminSignIn"
 import { useState, useEffect } from 'react';
-import AdminContent from "./pages/AdminContent";
+import AdminContent from "./pages/admin/AdminContent";
 import store from './store/store'
 import { Provider } from 'react-redux'
 
@@ -103,7 +103,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<Order orderID={orderID} handleIncreaseClick={handleIncreaseClick} />} />
           <Route path="/checkout" element={<Checkout handleIncreaseClick={handleIncreaseClick} handleDecreaseClick={handleDecreaseClick} orderID={orderID} />} />
-          <Route path="/admin" element={<Admin setToken={setToken} />} />
+          <Route path="/admin" element={<AdminSignIn setToken={setToken} />} />
           <Route path="/admin-account" element={<AdminContent token={token} />} />
         </Route>
       </Routes>
