@@ -7,7 +7,6 @@ export default function AdminReadTotal() {
         fetch("http://localhost:5000/admin/total")
             .then(res => res.json())
             .then(result => {
-
                 setTotalRevenue(result.total_revenue);
             });
     }, []);
