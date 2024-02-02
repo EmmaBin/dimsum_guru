@@ -156,6 +156,7 @@ app.post("/admin/", async (req, res) => {
         res.status(200).json({ message: "Item added successfully" });
 
     } catch (err) {
+        res.sendStatus(500);
         console.error('Error adding new item', err.message)
     }
 
@@ -166,6 +167,7 @@ app.delete('/admin/:id', async (req, res) => {
         await pool.query("DELETE FROM food WHERE food_id = $1 RETURNING *", [id]);
         res.json("One food was deleted");
     } catch (err) {
+        res.sendStatus(500);
         console.error(err.message)
     }
 })

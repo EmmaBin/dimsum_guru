@@ -8,7 +8,7 @@ export default function adminReducer(state = [], action) {
             return newState
         };
         case 'added_one_item':
-            return [...state, { food_id: action.food_id, name: action.name, price: +action.price, image: action.image }];
+            return [...state, { food_id: action.food_id, name: action.name, price: +action.price, image: action.image, category: action.category }];
         case 'edited_menu_item':
             const newState = [...state].map(food => {
                 if (food.food_id === action.food_id) {

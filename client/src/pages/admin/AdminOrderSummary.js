@@ -5,6 +5,7 @@ import AddItemForm from "../../components/AddItemForm";
 import { useSelector, useDispatch } from 'react-redux'
 import AdminFoodTable from "../../components/AdminFoodTable";
 import Loading from "../../components/Loading";
+import { memo } from 'react';
 
 
 
@@ -30,12 +31,11 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
             setFormDetail({
                 ...formDetail,
                 [event.target.name]: event.target.value,
-
             });
         }
         console.log("handle form submit image", event.target.files)
-
     };
+
 
     useEffect(() => {
         getAllFood()
@@ -44,13 +44,13 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
             });
     }, [])
 
+
     const uploadFile = async () => {
         const cloudForm = new FormData();
         cloudForm.append("file", formDetail.image)
         cloudForm.append("upload_preset", "dimsum")
 
         try {
-
             let api = `https://api.cloudinary.com/v1_1/dh2ri6dh9/image/upload`
             console.log("api", api)
             const data = await fetch(api, {
@@ -59,12 +59,9 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
             }).then(res => res.json())
             const result = data.url
             return result
-
         } catch (err) {
             console.error(err)
         }
-
-
     }
 
 
@@ -100,22 +97,19 @@ export default function AdminOrderSummary({ showModal, setShowModal, foodInfoEdi
                 return;
             }
     
-            // category is not showing, takes a long time to load
             store.dispatch({
                 type: 'added_one_item',
                 food_id: formDetail.food_id,
                 name: formDetail.name,
                 price: formDetail.price,
+                category:formDetail.category,
                 image: uploadedImageUrl,
             });
         } catch (err) {
             alert("Please refresh your page and resubmit");
-            console.error(err);
         } finally {
             setIsDisabled(false);
         }
-        
-    
     };
 
 
