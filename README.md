@@ -33,8 +33,14 @@ Review your order with ease!
 </br>
 
 **Admin Account**
-Comprehensive CRUD functionality for efficient inventory tracking.
+Comprehensive CRUD functionality enables the owner to instantly update the menu
 ![admin](./assets/admin.png)
+![create](./assets/create.png)
+![edit](./assets/edit.png)
+
+**Customer Service Chatbot**
+Implemented an OpenAI chatbot to serve as customer service, providing information to users.
+![chatbot](./assets/chatbot.png)
 
 </br>
 
