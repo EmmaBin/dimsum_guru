@@ -5,7 +5,7 @@ import AddItemForm from "../../components/AddItemForm";
 import { useSelector, useDispatch } from 'react-redux'
 import AdminFoodTable from "../../components/AdminFoodTable";
 import Loading from "../../components/Loading";
-import { memo } from 'react';
+
 
 
 

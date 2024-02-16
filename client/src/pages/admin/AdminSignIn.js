@@ -8,6 +8,7 @@ export default function Admin({ setToken }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [err, setErr] = useState('')
+    
     const handleLogin = async (event) => {
         event.preventDefault();
         if (email !== 'test@test.com' || password !== 'dimsum') {
