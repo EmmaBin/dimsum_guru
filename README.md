@@ -2,6 +2,7 @@
 
 DIM SUM GURU is a full-stack e-commerce platform designed specifically for online food ordering. Alongside its user-friendly customer interface, it features an admin dashboard for efficient menu updates. Leveraging the power of the Cloudinary API and OpenAI, it delivers real-time assistance to enhance the user experience.
 
+[![A Glimpse into DIM SUM GURU](./assets/chatbot.png)](https://www.youtube.com/watch?v=8a9TqcAg3Ps&t=4s)
 
 ## Key Features
 
